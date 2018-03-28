@@ -17,6 +17,10 @@ export const helpers = {
     return `${Math.floor((time * 100) / (length * 60))}%`;
   },
 
+  capitalize (str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  },
+
   audio: new window.AudioContext(),
 
   playSound () {

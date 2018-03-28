@@ -1,5 +1,6 @@
 export const rules = {
   isPaused: (state) => !state.get('intervalID'),
+  isBreak: (state) => state.get('name') === 'Break!',
   isSession: (state) => state.get('name') === 'Session',
 
   canSubtractTime: (state) => state.get('time') > 0,

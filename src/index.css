@@ -50,6 +50,10 @@ i {
   width: 150px;
 }
 
+.controls > div > div {
+  text-transform: uppercase;
+}
+
 .pomodoro {
   width: 300px;
   margin: 0 auto;
