@@ -61,6 +61,7 @@ span {
   width: 300px;
   padding: 10px;
   height: 300px;
+  cursor: pointer;
   overflow: hidden;
   position: relative;
   border-radius: 50%;
@@ -107,14 +108,5 @@ span {
   top: 150px;
   width: 100%;
   font-size: 50px;
-  position: absolute;
-}
-
-.toggle-paused {
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  cursor: pointer;
   position: absolute;
 }

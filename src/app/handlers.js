@@ -3,80 +3,90 @@ import { actions } from './actions';
 import { helpers } from './helpers';
 
 export const handlers = {
-  addSessionLength (store) {
+  addSessionLength (state, dispatch) {
     return () => {
-      if (rules.canAddSessionLength(store.getState())) {
-        store.dispatch(actions.addSessionLength());
+      if (rules.canAddSessionLength(state)) {
+        dispatch(actions.addSessionLength());
 
-        if (rules.isSession(store.getState())) {
-          store.dispatch(actions.setTime(store.getState().get('sessionLength') * 60));
-        }
+        dispatch((dispatch, getState) => {
+          if (rules.isSession(getState())) {
+            dispatch(actions.setTime(getState().get('sessionLength') * 60));
+          }
+        });
       }
     };
   },
 
-  subtractSessionLength (store) {
+  subtractSessionLength (state, dispatch) {
     return () => {
-      if (rules.canSubtractSessionLength(store.getState())) {
-        store.dispatch(actions.subtractSessionLength());
+      if (rules.canSubtractSessionLength(state)) {
+        dispatch(actions.subtractSessionLength());
 
-        if (rules.isSession(store.getState())) {
-          store.dispatch(actions.setTime(store.getState().get('sessionLength') * 60));
-        }
+        dispatch((dispatch, getState) => {
+          if (rules.isSession(getState())) {
+            dispatch(actions.setTime(getState().get('sessionLength') * 60));
+          }
+        });
       }
     };
   },
 
-  addBreakLength (store) {
+  addBreakLength (state, dispatch) {
     return () => {
-      if (rules.canAddBreakLength(store.getState())) {
-        store.dispatch(actions.addBreakLength());
+      if (rules.canAddBreakLength(state)) {
+        dispatch(actions.addBreakLength());
 
-        if (!rules.isSession(store.getState())) {
-          store.dispatch(actions.setTime(store.getState().get('breakLength') * 60));
-        }
+        dispatch((dispatch, getState) => {
+          if (!rules.isSession(getState())) {
+            dispatch(actions.setTime(getState().get('breakLength') * 60));
+          }
+        });
       }
     };
   },
 
-  subtractBreakLength (store) {
+  subtractBreakLength (state, dispatch) {
     return () => {
-      if (rules.canSubtractBreakLength(store.getState())) {
-        store.dispatch(actions.subtractBreakLength());
+      if (rules.canSubtractBreakLength(state)) {
+        dispatch(actions.subtractBreakLength());
 
-        if (!rules.isSession(store.getState())) {
-          store.dispatch(actions.setTime(store.getState().get('breakLength') * 60));
-        }
+        dispatch((dispatch, getState) => {
+          if (!rules.isSession(getState())) {
+            dispatch(actions.setTime(getState().get('breakLength') * 60));
+          }
+        });
       }
     };
   },
 
-  togglePaused (store) {
+  togglePaused (state, dispatch) {
     return () => {
-      if (!rules.isPaused(store.getState())) {
-        clearInterval(store.getState().get('intervalID'));
-        store.dispatch(actions.setIntervalID(null));
+      if (!rules.isPaused(state)) {
+        clearInterval(state.get('intervalID'));
+        dispatch(actions.setIntervalID(null));
       }
       else {
         const intervalID = setInterval(() => {
-          if (rules.canSubtractTime(store.getState())) {
-            store.dispatch(actions.setTime(store.getState().get('time') - 1));
-          }
-          else {
-            helpers.playSound();
-
-            if (rules.isSession(store.getState())) {
-              store.dispatch(actions.setName('Break!'));
-              store.dispatch(actions.setTime(store.getState().get('breakLength') * 60));
+          dispatch((dispatch, getState) => {
+            if (rules.canSubtractTime(getState())) {
+              dispatch(actions.setTime(getState().get('time') - 1));
             }
             else {
-              store.dispatch(actions.setName('Session'));
-              store.dispatch(actions.setTime(store.getState().get('sessionLength') * 60));
+              helpers.playSound();
+
+              if (rules.isSession(getState())) {
+                dispatch(actions.setName('Break!'));
+                dispatch(actions.setTime(getState().get('breakLength') * 60));
+              }
+              else {
+                dispatch(actions.setName('Session'));
+                dispatch(actions.setTime(getState().get('sessionLength') * 60));
+              }
             }
-          }
+          });
         }, 1000);
 
-        store.dispatch(actions.setIntervalID(intervalID));
+        dispatch(actions.setIntervalID(intervalID));
       }
     };
   },
