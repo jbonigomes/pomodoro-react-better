@@ -3,20 +3,21 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { rules } from '../app/rules';
-import { helpers } from '../app/helpers';
 import { actions } from '../redux/actions';
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   state: state
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   dispatch: dispatch
 });
 
+const capitalize = str => str.charAt(0).toUpperCase() + str.slice(1);
+
 const modifyLength = (operation, type, state, dispatch) => {
-  const upperType = helpers.capitalize(type);
-  const upperOperation = helpers.capitalize(operation);
+  const upperType = capitalize(type);
+  const upperOperation = capitalize(operation);
 
   return () => {
     if (rules[`can${upperOperation}${upperType}Length`](state)) {
@@ -35,13 +36,9 @@ const Controls = ({ type, state, dispatch }) => {
   return (
     <div>
       <div>{type} length</div>
-      <i onClick={modifyLength('subtract', type, state, dispatch)}>
-        -
-      </i>
+      <i onClick={modifyLength('subtract', type, state, dispatch)}>-</i>
       <span>{state.get(`${type}Length`)}</span>
-      <i onClick={modifyLength('add', type, state, dispatch)}>
-        +
-      </i>
+      <i onClick={modifyLength('add', type, state, dispatch)}>+</i>
     </div>
   );
 };

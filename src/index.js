@@ -5,7 +5,7 @@ import thunk from 'redux-thunk';
 
 import { Map } from 'immutable';
 import { render } from 'react-dom';
-import { Provider } from 'react-redux'
+import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 
 import { pomodoro } from './redux/reducers';
@@ -13,13 +13,12 @@ import { pomodoro } from './redux/reducers';
 import Pomodoro from './components/Pomodoro';
 
 const state = Map({
-  time: 25 * 60,
-  breakLength: 5,
-  sessionLength: 25,
-
-  intervalID: null,
-
   name: 'Session',
+
+  time: 60,
+  breakLength: 1,
+  sessionLength: 1,
+  intervalID: undefined
 });
 
 const store = createStore(pomodoro, state, applyMiddleware(thunk));
@@ -29,4 +28,4 @@ render(
     <Pomodoro />
   </Provider>,
   document.getElementById('pomodoro')
-)
+);

@@ -3,10 +3,10 @@
   --black: #333;
   --white: #fff;
 
-  --red: #f00;
-  --green: #0f0;
+  --red: #d00;
+  --green: #0d0;
 
-  --transparent: rgba(0, 0, 0, .3);
+  --transparent: rgba(0, 0, 0, 0.3);
 }
 
 ::selection {
@@ -14,7 +14,6 @@
 }
 
 body {
-  font-size: 14px;
   text-align: center;
   color: var(--white);
   background: var(--black);
@@ -23,12 +22,12 @@ body {
 }
 
 h1 {
-  padding: 30px 0;
   font-size: 70px;
   font-family: 'Lobster', cursive;
 }
 
-span, i {
+span,
+i {
   font-size: 30px;
 }
 
@@ -61,23 +60,20 @@ i {
 
 .clock {
   width: 300px;
-  padding: 10px;
   height: 300px;
   cursor: pointer;
   overflow: hidden;
   position: relative;
   border-radius: 50%;
   box-sizing: border-box;
-  border: 2px solid var(--white);
+  border: 5px solid var(--black);
+  box-shadow: 0px 0px 0px 2px var(--white);
 }
 
 .background {
-  top: 5px;
-  left: 5px;
-  width: 286px;
-  height: 286px;
+  bottom: 0;
+  width: 100%;
   position: absolute;
-  border-radius: 50%;
 }
 
 .background.red {
@@ -88,27 +84,19 @@ i {
   background: var(--green);
 }
 
-.cover {
-  top: 0;
+.title,
+.timer {
   left: 0;
   width: 100%;
-  height: 100%;
   position: absolute;
-  background: var(--black);
 }
 
 .title {
-  left: 0;
   top: 70px;
-  width: 100%;
   font-size: 40px;
-  position: absolute;
 }
 
 .timer {
-  left: 0;
   top: 150px;
-  width: 100%;
   font-size: 50px;
-  position: absolute;
 }
