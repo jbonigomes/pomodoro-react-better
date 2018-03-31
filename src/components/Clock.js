@@ -49,7 +49,7 @@ const tickClock = dispatch => {
 const togglePaused = (state, dispatch) => {
   return () => {
     if (rules.isPaused(state)) {
-      dispatch(actions.setIntervalID(setInterval(tickClock(dispatch), 100)));
+      dispatch(actions.setIntervalID(setInterval(tickClock(dispatch), 1000)));
     } else {
       dispatch(actions.setIntervalID(clearInterval(state.get('intervalID'))));
     }
