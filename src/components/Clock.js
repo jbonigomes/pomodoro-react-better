@@ -17,13 +17,19 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const playSound = () => {
-  const addPause = len =>
-    Array(len)
+  const base64AudioString = [
+    '//uQQQ',
+    Array(21)
       .fill('A')
-      .join('');
-  const str = `//uQQQ${addPause(21)}//uQ/QuQQQ${addPause(519)}//uQQQ`;
+      .join(''),
+    '//uQ/QuQQQ',
+    Array(519)
+      .fill('A')
+      .join(''),
+    '//uQQQ'
+  ];
 
-  new Audio(`data:audio/wav;base64,${str}`).play();
+  new Audio(`data:audio/wav;base64,${base64AudioString}`).play();
 };
 
 const tickClock = dispatch => {
