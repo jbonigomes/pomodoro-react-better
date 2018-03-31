@@ -17,7 +17,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const playSound = () => {
-  const base64AudioString = [
+  const base64AudioArray = [
     '//uQQQ',
     Array(21)
       .fill('A')
@@ -29,7 +29,7 @@ const playSound = () => {
     '//uQQQ'
   ];
 
-  new Audio(`data:audio/wav;base64,${base64AudioString}`).play();
+  new Audio(`data:audio/wav;base64,${base64AudioArray.join('')}`).play();
 };
 
 const tickClock = dispatch => {
@@ -55,7 +55,7 @@ const tickClock = dispatch => {
 const togglePaused = (state, dispatch) => {
   return () => {
     if (rules.isPaused(state)) {
-      dispatch(actions.setIntervalID(setInterval(tickClock(dispatch), 1000)));
+      dispatch(actions.setIntervalID(setInterval(tickClock(dispatch), 100)));
     } else {
       dispatch(actions.setIntervalID(clearInterval(state.get('intervalID'))));
     }
